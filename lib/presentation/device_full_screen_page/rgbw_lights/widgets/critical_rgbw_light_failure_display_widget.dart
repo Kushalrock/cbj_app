@@ -1,4 +1,5 @@
 import 'package:cybear_jinni/domain/devices/device/devices_failures.dart';
+import 'package:cybear_jinni/utils.dart';
 import 'package:flutter/material.dart';
 
 class CriticalRgbwLightFailureDisplay extends StatelessWidget {
@@ -30,7 +31,7 @@ class CriticalRgbwLightFailureDisplay extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              print('Sending email!');
+              logger.i('Sending email!');
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,

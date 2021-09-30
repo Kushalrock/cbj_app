@@ -39,7 +39,7 @@ class HubConnectionRepository extends IHubConnectionRepository {
       final ConnectivityResult connectivityResult =
           await Connectivity().checkConnectivity();
     } catch (e) {
-      print('Cant check connectivity this is probably PC, error: $e');
+      logger.i('Cant check connectivity this is probably PC, error: $e');
     }
 
     final String? wifiBSSID = await NetworkInfo().getWifiBSSID();
@@ -57,7 +57,7 @@ class HubConnectionRepository extends IHubConnectionRepository {
     } else {
       // await HubClient.createStreamWithHub('', 50051);
       // await HubClient.createStreamWithHub('127.0.0.1', 50051);
-      print('Test remote pipes');
+      logger.i('Test remote pipes');
     }
   }
 
@@ -84,18 +84,18 @@ class HubConnectionRepository extends IHubConnectionRepository {
         in client.lookup<IPAddressResourceRecord>(
             ResourceRecordQuery.addressIPv4(mDnsName))) {
       deviceIp = record.address.address;
-      print('Found address (${record.address}).');
+      logger.i('Found address (${record.address}).');
     }
 
     // await for (final IPAddressResourceRecord record
     //     in client.lookup<IPAddressResourceRecord>(
     //         ResourceRecordQuery.addressIPv6(fullMdnsName))) {
-    //   print('Found address (${record.address}).');
+    //   logger.i('Found address (${record.address}).');
     // }
 
     client.stop();
 
-    print('Done.');
+    logger.i('Done.');
 
     return deviceIp;
   }
@@ -145,7 +145,7 @@ class HubConnectionRepository extends IHubConnectionRepository {
 
   @override
   Future<void> saveHubIP(String hubIP) async {
-    print('saveHubIP');
+    logger.i('saveHubIP');
   }
 
   Future<Either<HubFailures, Unit>> askLocationPermissionAndLocationOn() async {
@@ -165,7 +165,7 @@ class HubConnectionRepository extends IHubConnectionRepository {
         if (_permissionGranted == PermissionStatus.denied) {
           _permissionGranted = await location.requestPermission();
           if (_permissionGranted != PermissionStatus.granted) {
-            print('Permission to use location is denied');
+            logger.i('Permission to use location is denied');
             permissionCounter++;
             if (permissionCounter > 5) {
               permission_handler.openAppSettings();
@@ -178,7 +178,7 @@ class HubConnectionRepository extends IHubConnectionRepository {
         if (!_serviceEnabled) {
           _serviceEnabled = await location.requestService();
           if (!_serviceEnabled) {
-            print('Location is disabled');
+            logger.i('Location is disabled');
             continue;
           }
         }

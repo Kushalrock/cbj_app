@@ -1,5 +1,6 @@
 import 'package:cybear_jinni/domain/devices/abstract_device/device_entity_abstract.dart';
 import 'package:cybear_jinni/domain/devices/generic_smart_tv/generic_smart_tv_entity.dart';
+import 'package:cybear_jinni/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -31,7 +32,7 @@ class SmartTvInTheRoom extends StatelessWidget {
         // context.router.push(RoomsSmartTvsRoute(
         //     showDevicesOnlyFromRoomId: smart_tvsInRoom![0].roomId.getOrCrash(),
         //     roomColorGradiant: roomColorGradiant));
-        print('TV page is not supported');
+        logger.i('TV page is not supported');
       },
       child: Container(
         color: Colors.amber.withOpacity(0.03),

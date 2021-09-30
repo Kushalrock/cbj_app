@@ -5,6 +5,7 @@ import 'package:cybear_jinni/domain/manage_network/manage_network_entity.dart';
 // import 'package:cybear_jinni/infrastructure/core/constant_credentials.dart';
 import 'package:cybear_jinni/infrastructure/core/gen/security_bear/client/protoc_as_dart/security_bear_connections.pbgrpc.dart';
 import 'package:cybear_jinni/injection.dart';
+import 'package:cybear_jinni/utils.dart';
 import 'package:grpc/grpc.dart';
 
 class SecurityBearServerClient {
@@ -35,11 +36,12 @@ class SecurityBearServerClient {
       responseSBCommendStatus =
           await stub.setWiFiInformation(securityBearSetup);
 
-      print('Greeter client received: ${responseSBCommendStatus.toString()}');
+      logger
+          .i('Greeter client received: ${responseSBCommendStatus.toString()}');
 //      await channel.shutdown();
       return responseSBCommendStatus;
     } catch (e) {
-      print('Caught error: $e');
+      logger.i('Caught error: $e');
     }
 //    await channel.shutdown();
     return SBCommendStatus()..success = false;
@@ -81,11 +83,12 @@ class SecurityBearServerClient {
       //     await stub.setFirebaseAccountAndSecurityBearSetup(
       //         sBFirebaseAccountAndSecurityBearSetup);
 
-      print('Greeter client received: ${responseSBCommendStatus.toString()}');
+      logger
+          .i('Greeter client received: ${responseSBCommendStatus.toString()}');
       await channel.shutdown();
       return responseSBCommendStatus;
     } catch (e) {
-      print('Caught error: $e');
+      logger.i('Caught error: $e');
     }
     await channel.shutdown();
     return null;

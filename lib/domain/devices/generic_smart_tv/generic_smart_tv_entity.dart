@@ -5,6 +5,7 @@ import 'package:cybear_jinni/domain/devices/generic_smart_tv/generic_smart_tv_va
 import 'package:cybear_jinni/infrastructure/core/gen/cbj_hub_server/protoc_as_dart/cbj_hub_server.pbgrpc.dart';
 import 'package:cybear_jinni/infrastructure/generic_devices/abstract_device/device_entity_dto_abstract.dart';
 import 'package:cybear_jinni/infrastructure/generic_devices/generic_smart_tv_device/generic_smart_tv_device_dtos.dart';
+import 'package:cybear_jinni/utils.dart';
 import 'package:dartz/dartz.dart';
 
 /// Abstract smart GenericSmartTv that exist inside a computer, the
@@ -110,21 +111,21 @@ class GenericSmartTvDE extends DeviceEntityAbstract {
   /// Please override the following methods
   Future<Either<CoreFailure, Unit>> executeDeviceAction(
       DeviceEntityAbstract newEntity) async {
-    print('Please override this method in the non generic implementation');
+    logger.i('Please override this method in the non generic implementation');
     return left(const CoreFailure.actionExcecuter(
         failedValue: 'Action does not exist'));
   }
 
   /// Please override the following methods
   Future<Either<CoreFailure, Unit>> turnOnSmartTv() async {
-    print('Please override this method in the non generic implementation');
+    logger.i('Please override this method in the non generic implementation');
     return left(const CoreFailure.actionExcecuter(
         failedValue: 'Action does not exist'));
   }
 
   /// Please override the following methods
   Future<Either<CoreFailure, Unit>> turnOffSmartTv() async {
-    print('Please override this method in the non generic implementation');
+    logger.i('Please override this method in the non generic implementation');
     return left(const CoreFailure.actionExcecuter(
         failedValue: 'Action does not exist'));
   }

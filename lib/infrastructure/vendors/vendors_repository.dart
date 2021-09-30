@@ -3,6 +3,7 @@ import 'package:cybear_jinni/domain/vendors/vendor.dart';
 import 'package:cybear_jinni/domain/vendors/vendor_failures.dart';
 import 'package:cybear_jinni/domain/vendors/vendor_value_objects.dart';
 import 'package:cybear_jinni/infrastructure/core/gen/cbj_hub_server/protoc_as_dart/cbj_hub_server.pbgrpc.dart';
+import 'package:cybear_jinni/utils.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/kt.dart';
@@ -23,7 +24,7 @@ class VendorsRepository implements IVendorsRepository {
       }
       vendorsWithIcons
           .add(vendorPlusImageFromVandorName(vendorsAndServices.name));
-      print(vendorsAndServices.name);
+      logger.i(vendorsAndServices.name);
     }
     return right(vendorsWithIcons.toImmutableList());
   }

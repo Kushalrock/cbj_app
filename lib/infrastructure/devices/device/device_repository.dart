@@ -20,6 +20,7 @@ import 'package:cybear_jinni/infrastructure/core/gen/cbj_hub_server/protoc_as_da
 import 'package:cybear_jinni/infrastructure/devices/device_helper.dart';
 import 'package:cybear_jinni/infrastructure/generic_devices/abstract_device/device_entity_dto_abstract.dart';
 import 'package:cybear_jinni/injection.dart';
+import 'package:cybear_jinni/utils.dart';
 import 'package:dartz/dartz.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/services.dart';
@@ -63,10 +64,10 @@ class DeviceRepository implements IDeviceRepository {
       return right(allDevices.values.toImmutableList());
     } catch (e) {
       if (e is PlatformException && e.message!.contains('PERMISSION_DENIED')) {
-        print('Insufficient permission while getting all devices');
+        logger.i('Insufficient permission while getting all devices');
         return left(const DevicesFailure.insufficientPermission());
       } else {
-        print('Unexpected error while getting all devices');
+        logger.i('Unexpected error while getting all devices');
         // log.error(e.toString());
         return left(const DevicesFailure.unexpected());
       }
@@ -155,11 +156,11 @@ class DeviceRepository implements IDeviceRepository {
       final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
       if (Platform.isAndroid) {
         final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-        print(androidInfo.model);
+        logger.i(androidInfo.model);
         deviceModelString = androidInfo.model;
       } else if (Platform.isIOS) {
         final IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        print(iosInfo.utsname.machine);
+        logger.i(iosInfo.utsname.machine);
         deviceModelString = iosInfo.model;
       }
 
@@ -250,7 +251,7 @@ class DeviceRepository implements IDeviceRepository {
           deviceEntity.boilerSwitchState =
               GenericBoilerSwitchState(DeviceActions.on.toString());
         } else {
-          print(
+          logger.i(
             'On action not supported for'
             ' ${deviceEntity.deviceTypes.getOrCrash()} type',
           );
@@ -296,7 +297,7 @@ class DeviceRepository implements IDeviceRepository {
           deviceEntity.boilerSwitchState =
               GenericBoilerSwitchState(DeviceActions.off.toString());
         } else {
-          print(
+          logger.i(
             'Off action not supported for'
             ' ${deviceEntity.deviceTypes.getOrCrash()} type',
           );
@@ -344,7 +345,7 @@ class DeviceRepository implements IDeviceRepository {
             ..lightColorValue =
                 GenericRgbwLightColorValue(colorToChange.value.toString());
         } else {
-          print(
+          logger.i(
             'Off action not supported for'
             ' ${deviceEntity.deviceTypes.getOrCrash()} type',
           );
@@ -384,7 +385,7 @@ class DeviceRepository implements IDeviceRepository {
           deviceEntity.blindsSwitchState =
               GenericBlindsSwitchState(DeviceActions.moveUp.toString());
         } else {
-          print(
+          logger.i(
             'Off action not supported for'
             ' ${deviceEntity.deviceTypes.getOrCrash()} type',
           );
@@ -424,7 +425,7 @@ class DeviceRepository implements IDeviceRepository {
           deviceEntity.blindsSwitchState =
               GenericBlindsSwitchState(DeviceActions.stop.toString());
         } else {
-          print(
+          logger.i(
             'Off action not supported for'
             ' ${deviceEntity.deviceTypes.getOrCrash()} type',
           );
@@ -464,7 +465,7 @@ class DeviceRepository implements IDeviceRepository {
           deviceEntity.blindsSwitchState =
               GenericBlindsSwitchState(DeviceActions.moveDown.toString());
         } else {
-          print(
+          logger.i(
             'Off action not supported for'
             ' ${deviceEntity.deviceTypes.getOrCrash()} type',
           );
@@ -516,7 +517,7 @@ class DeviceRepository implements IDeviceRepository {
         AppRequestsToHub.appRequestsToHubStreamController.sink
             .add(clientStatusRequests);
       } catch (e) {
-        print('This is the error $e');
+        logger.i('This is the error $e');
 
         // final DocumentReference homeDoc =
         //     await _firestore.currentHomeDocument();
@@ -531,7 +532,7 @@ class DeviceRepository implements IDeviceRepository {
 
       return right(unit);
     } catch (e) {
-      print('Probably ip of device was not inserted into the device object');
+      logger.i('Probably ip of device was not inserted into the device object');
       return left(const DevicesFailure.unexpected());
     }
   }
@@ -569,18 +570,18 @@ class DeviceRepository implements IDeviceRepository {
       ResourceRecordQuery.addressIPv4(fullMdnsName),
     )) {
       deviceIp = record.address.address;
-      print('Found address (${record.address}).');
+      logger.i('Found address (${record.address}).');
     }
 
     // await for (final IPAddressResourceRecord record
     //     in client.lookup<IPAddressResourceRecord>(
     //         ResourceRecordQuery.addressIPv6(fullMdnsName))) {
-    //   print('Found address (${record.address}).');
+    //   logger.i('Found address (${record.address}).');
     // }
 
     client.stop();
 
-    print('Done.');
+    logger.i('Done.');
 
     return deviceIp;
   }

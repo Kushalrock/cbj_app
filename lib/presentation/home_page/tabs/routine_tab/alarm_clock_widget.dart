@@ -1,4 +1,5 @@
 import 'package:cybear_jinni/presentation/core/notifications.dart';
+import 'package:cybear_jinni/utils.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,7 @@ class _AlarmClockState extends State<AlarmClockWidget> {
                     onChanged: (value) async {
                       setState(() {
                         isSwitched = value;
-                        print(isSwitched);
+                        logger.i(isSwitched);
                       });
                       // await zonedScheduleNotification();
                       await showNotificationCustomSound();

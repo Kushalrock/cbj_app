@@ -5,6 +5,7 @@ import 'package:cybear_jinni/domain/devices/generic_blinds_device/generic_blinds
 import 'package:cybear_jinni/infrastructure/core/gen/cbj_hub_server/protoc_as_dart/cbj_hub_server.pbgrpc.dart';
 import 'package:cybear_jinni/infrastructure/generic_devices/abstract_device/device_entity_dto_abstract.dart';
 import 'package:cybear_jinni/infrastructure/generic_devices/generic_blinds_device/generic_blinds_device_dtos.dart';
+import 'package:cybear_jinni/utils.dart';
 import 'package:dartz/dartz.dart';
 
 /// Abstract smart GenericBlinds that exist inside a computer, the
@@ -110,7 +111,7 @@ class GenericBlindsDE extends DeviceEntityAbstract {
   /// Please override the following methods
   Future<Either<CoreFailure, Unit>> executeDeviceAction(
       DeviceEntityAbstract newEntity) async {
-    print('Please override this method in the non generic implementation');
+    logger.i('Please override this method in the non generic implementation');
     return left(
       const CoreFailure.actionExcecuter(
         failedValue: 'Action does not exist',
@@ -120,14 +121,14 @@ class GenericBlindsDE extends DeviceEntityAbstract {
 
   /// Please override the following methods
   Future<Either<CoreFailure, Unit>> turnOnBlinds() async {
-    print('Please override this method in the non generic implementation');
+    logger.i('Please override this method in the non generic implementation');
     return left(const CoreFailure.actionExcecuter(
         failedValue: 'Action does not exist'));
   }
 
   /// Please override the following methods
   Future<Either<CoreFailure, Unit>> turnOffBlinds() async {
-    print('Please override this method in the non generic implementation');
+    logger.i('Please override this method in the non generic implementation');
     return left(const CoreFailure.actionExcecuter(
         failedValue: 'Action does not exist'));
   }

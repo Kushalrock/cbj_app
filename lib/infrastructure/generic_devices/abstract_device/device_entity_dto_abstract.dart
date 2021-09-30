@@ -1,5 +1,6 @@
 import 'package:cybear_jinni/domain/devices/abstract_device/device_entity_abstract.dart';
 import 'package:cybear_jinni/infrastructure/generic_devices/generic_light_device/generic_light_device_dtos.dart';
+import 'package:cybear_jinni/utils.dart';
 
 class DeviceEntityDtoAbstract {
   DeviceEntityDtoAbstract();
@@ -8,7 +9,7 @@ class DeviceEntityDtoAbstract {
 
   factory DeviceEntityDtoAbstract.fromDomain(
       DeviceEntityAbstract deviceEntityDtoAbstract) {
-    print('DeviceEntityDtoAbstract.fromDomain');
+    logger.i('DeviceEntityDtoAbstract.fromDomain');
     return DeviceEntityDtoAbstract();
   }
 
@@ -25,12 +26,12 @@ class DeviceEntityDtoAbstract {
   }
 
   Map<String, dynamic> toJson() {
-    print('DeviceEntityDtoAbstract to Json');
+    logger.i('DeviceEntityDtoAbstract to Json');
     return {};
   }
 
   DeviceEntityAbstract toDomain() {
-    print('ToDomain');
+    logger.i('ToDomain');
     return DeviceEntityEmpty();
   }
 }
